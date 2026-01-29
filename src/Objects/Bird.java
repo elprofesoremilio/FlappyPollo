@@ -1,14 +1,16 @@
 package Objects;
 
+import Engine.Collidable;
 import Engine.GameObject;
 import Engine.InputHandler;
 import Engine.Scene;
 import Game.Config;
+import Scenes.GameOverScene;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class Bird extends GameObject {
+public class Bird extends GameObject implements Collidable {
 
     private InputHandler input;
     /**
@@ -44,5 +46,27 @@ public class Bird extends GameObject {
         if (input.isKeyPressed(KeyEvent.VK_SPACE)) {
             this.speedY = Config.IMPULSE;
         }
+
+        if (y < 0 || y > scene.getGame().getHeight()) {
+            gameOver();
+        }
+
+    }
+
+    @Override
+    public void onCollision(GameObject other) {
+        // Usamos el método countIf que creamos antes para el motor
+        int colisiones = scene.countIf(obj ->
+                obj instanceof Pipe && this.intersects(obj)
+        );
+
+        // Si toca un tubo o se sale por arriba/abajo de la pantalla
+        if (colisiones > 0) {
+            gameOver();
+        }
+    }
+
+    private void gameOver() {
+        scene.getGame().setScene(new GameOverScene(scene.getGame()));
     }
 }

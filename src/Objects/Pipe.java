@@ -1,11 +1,12 @@
 package Objects;
 
+import Engine.Collidable;
 import Engine.GameObject;
 import Engine.Scene;
 
 import java.awt.*;
 
-public class Pipe extends GameObject {
+public class Pipe extends GameObject implements Collidable {
     private static final float PIPE_SPEED = -100f; // Píxeles por segundo hacia la izquierda
 
     public Pipe(float x, float y, int width, int height, Scene scene) {
@@ -32,5 +33,10 @@ public class Pipe extends GameObject {
         // Borde para que se vea mejor
         g.setColor(Color.BLACK);
         g.drawRect((int)x, (int)y, width, height);
+    }
+
+    @Override
+    public void onCollision(GameObject other) {
+
     }
 }
