@@ -3,15 +3,15 @@ package Objects;
 import Engine.Collidable;
 import Engine.GameObject;
 import Engine.Scene;
+import Game.Config;
 
 import java.awt.*;
 
 public class Pipe extends GameObject implements Collidable {
-    private static final float PIPE_SPEED = -100f; // Píxeles por segundo hacia la izquierda
 
     public Pipe(float x, float y, int width, int height, Scene scene) {
         super(x, y, width, height, scene);
-        this.speedX = PIPE_SPEED; // Movimiento constante
+        this.speedX = Config.PIPE_SPEED; // Movimiento constante
         this.gravity = 0;         // Los tubos no caen
     }
 
